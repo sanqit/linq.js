@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<script src="../js/linq.js"></script>
+	<script src="../test/test.js"></script>
+</head>
+<body>
+<style>
+	.success {
+		color: green;
+	}
+	.fail {
+		color: red;
+	}
+</style>
+<script language="javascript">
+	document.write("Test Equals = " + (TestEquals() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test SELECT = " + (TestSelect() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test WHERE = " + (TestWhere() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test any = " + (TestAny() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test all = " + (TestAll() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test distinct = " + (TestDistinct() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test orderBy = " + (TestOrderBy() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test orderByDescending = " + (TestOrderByDescending() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+	document.write("Test toDictionary = " + (TestToDictionary() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+</script>
+</body>
+</html>
