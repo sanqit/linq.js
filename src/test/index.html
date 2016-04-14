@@ -36,7 +36,7 @@
 		for (var i in allTests) {
 			if (allTests.hasOwnProperty(i)) {
 				allTests[i].innerHTML = "";
-				allTests[i].innerHTML += writeTestInfo("Test testAggragate", testAggragate())
+				allTests[i].innerHTML += writeTestInfo("Test aggregate", testAggregate())
 					+ writeTestInfo("Test all", testAll())
 					+ writeTestInfo("Test any", testAny())
 					+ writeTestInfo("Test average", testAverage())

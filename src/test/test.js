@@ -88,7 +88,7 @@ var minMaxTestSample3 = [null, undefined, null];
 var averageTestSample1 = [null, 10007, 37, 399846234235];
 var averageTestSample2 = [null, null, null, null];
 
-function testAggragate() {
+function testAggregate() {
 	var isAggregateComplete = true;
 	var sentence = "the quick brown fox jumps over the lazy dog";
 
