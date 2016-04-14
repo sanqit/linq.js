@@ -1,4 +1,4 @@
-﻿function Comparer(a, b) {
+﻿function defaultComparer(a, b) {
 	if (a === b) return 0;
 	if (a == null) return -1;
 	if (b == null) return 1;
@@ -9,7 +9,8 @@
 Object.defineProperty(Object.prototype, "equals", {
 	value: function (b) {
 		"use strict";
-		return this == b || this === b || JSON.stringify(this) === JSON.stringify(b);
+		var a = this;
+		return a === b || a === b || JSON.stringify(a) === JSON.stringify(b);
 	}
 });
 
@@ -62,7 +63,7 @@ Object.defineProperty(Array.prototype, "all", {
 Object.defineProperty(Array.prototype, "orderBy", {
 	value: function (selector, comparer) {
 		"use strict";
-		comparer = comparer || Comparer;
+		comparer = comparer || defaultComparer;
 		var fn = function(a, b) {
 			return comparer(selector(a), selector(b));
 		};
@@ -73,8 +74,8 @@ Object.defineProperty(Array.prototype, "orderBy", {
 Object.defineProperty(Array.prototype, "orderByDescending", {
 	value: function (selector, comparer) {
 		"use strict";
-		comparer = comparer || Comparer;
-		return this.orderBy(selector, (a, b) => -comparer(a, b));
+		comparer = comparer || defaultComparer;
+		return this.orderBy(selector, function (a, b) { return -comparer(a, b); });
 	}
 });
 
@@ -83,8 +84,10 @@ Object.defineProperty(Array.prototype, "distinct", {
 		"use strict";
 		var arr = [];
 		var length = this.length;
-		for (var i = 0; i < length; i++)
-			if (!arr.any(x => x.equals(this[i]))) arr.push(this[i]);
+		for (var i = 0; i < length; i++) {
+			var a = this[i];
+			if (!arr.any(function(x) { return x.equals(a); })) arr.push(a);
+		}
 		return arr;
 	}
 });
