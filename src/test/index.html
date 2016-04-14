@@ -16,31 +16,39 @@
 	}
 </style>
 <div class="all-tests"></div>
-	<button onclick="runAllTest()">Run Test</button>
+	<button onclick="writeInfoAboutAllTest()">Run Test</button>
 <script language="javascript">
-	function runAllTest()
+	function writeInfoAboutAllTest()
 	{
 		var allTests = document.getElementsByClassName("all-tests");
 		for (var i in allTests) {
 			if (allTests.hasOwnProperty(i)) {
 				allTests[i].innerHTML = "";
-				allTests[i].innerHTML += ("Test testAggragate = " + (testAggragate() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test all = " + (testAll() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test any = " + (testAny() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test average = " + (testAverage() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test concat = " + (testConcat() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test count = " + (testCount() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test equals = " + (testEquals() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test select = " + (testSelect() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test where = " + (testWhere() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test distinct = " + (testDistinct() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test orderBy = " + (testOrderBy() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test orderByDescending = " + (testOrderByDescending() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test toDictionary = " + (testToDictionary() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test max = " + (testMax() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
-				allTests[i].innerHTML += ("Test min = " + (testMin() ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>");
+				allTests[i].innerHTML += ("Test testAggragate = " + writeTestInfo(testAggragate()));
+				allTests[i].innerHTML += ("Test all = " + writeTestInfo(testAll()));
+				allTests[i].innerHTML += ("Test any = " + writeTestInfo(testAny()));
+				allTests[i].innerHTML += ("Test average = " + writeTestInfo(testAverage()));
+				allTests[i].innerHTML += ("Test concat = " + writeTestInfo(testConcat()));
+				allTests[i].innerHTML += ("Test count = " + writeTestInfo(testCount()));
+				allTests[i].innerHTML += ("Test elementAt = " + writeTestInfo(testElementAt()));
+				allTests[i].innerHTML += ("Test except = " + writeTestInfo(testExept()));
+				allTests[i].innerHTML += ("Test first = " + writeTestInfo(testFirst()));
+				allTests[i].innerHTML += ("Test firstOrDefault = " + writeTestInfo(testFirstOrDefault()));
+				allTests[i].innerHTML += ("Test equals = " + writeTestInfo(testEquals()));
+				allTests[i].innerHTML += ("Test select = " + writeTestInfo(testSelect()));
+				allTests[i].innerHTML += ("Test where = " + writeTestInfo(testWhere()));
+				allTests[i].innerHTML += ("Test distinct = " + writeTestInfo(testDistinct()));
+				allTests[i].innerHTML += ("Test orderBy = " + writeTestInfo(testOrderBy()));
+				allTests[i].innerHTML += ("Test orderByDescending = " + writeTestInfo(testOrderByDescending()));
+				allTests[i].innerHTML += ("Test toDictionary = " + writeTestInfo(testToDictionary()));
+				allTests[i].innerHTML += ("Test max = " + writeTestInfo(testMax()));
+				allTests[i].innerHTML += ("Test min = " + writeTestInfo(testMin()));
 			}
 		}
+	}
+
+	function writeTestInfo(isComplete) {
+		return (isComplete ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>";
 	}
 </script>
 </body>

@@ -145,6 +145,39 @@ function testCount() {
 	return isCountComplete;
 }
 
+function testElementAt() {
+	var isElementAtComplete = true;
+	var fruits = ["apple", "banana", "mango", "orange", "passionfruit", "grape"];
+	isElementAtComplete &= fruits.elementAt(1) === "banana";
+	return isElementAtComplete;
+}
+
+function testExept() {
+	var isExeptcComplete = true;
+	var numbers1 = [2.0, 2.1, 2.2, 2.3, 2.4, 2.5];
+	var numbers2 = [2.2];
+	var onlyInFirstSet = numbers1.except(numbers2);
+	isExeptcComplete &= onlyInFirstSet.equals([2.0, 2.1, 2.3, 2.4, 2.5]);
+	return isExeptcComplete;
+}
+
+function testFirst() {
+	var isFirstComplete = true;
+	var numbers = [9, 34, 65, 92, 87, 435, 3, 54, 83, 23, 87, 435, 67, 12, 19];
+	isFirstComplete &= numbers.first() === 9;
+	isFirstComplete &= numbers.first(number => number > 80) === 92;
+	return isFirstComplete;
+}
+
+function testFirstOrDefault() {
+	var isFirstOrDefaultComplete = true;
+	var names = ["Hartono, Tommy", "Adams, Terry", "Andersen, Henriette Thaulow", "Hedlund, Magnus", "Ito, Shu"];
+	isFirstOrDefaultComplete &= names.firstOrDefault(name => name.length > 20) === "Andersen, Henriette Thaulow";
+	isFirstOrDefaultComplete &= names.firstOrDefault(name => name.length > 30) == null;
+	isFirstOrDefaultComplete &= names.firstOrDefault() === "Hartono, Tommy";
+	isFirstOrDefaultComplete &= [].firstOrDefault() == null;
+	return isFirstOrDefaultComplete;
+}
 
 function testEquals() {
 	var isEquals = true;

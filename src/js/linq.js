@@ -54,6 +54,50 @@ Object.defineProperty(Array.prototype, "count", {
 	}
 });
 
+Object.defineProperty(Array.prototype, "elementAt", {
+	value: function (index) {
+		"use strict";
+		return this[index];
+	}
+});
+
+Object.defineProperty(Array.prototype, "except", {
+	value: function(arr, comparer) {
+		"use strict";
+		comparer = comparer || defaultComparer;
+		var res = [];
+		for (var i = 0; i < this.length; i++)
+			for (var j = 0; j < arr.length; j++)
+				if (comparer(arr[j], this[i]) !==0)
+					res.push(this[i]);
+		return res;
+	}
+});
+
+Object.defineProperty(Array.prototype, "first", {
+	value: function (predicate) {
+		"use strict";
+		if (predicate == null) return this[0];
+		for (var i = 0; i < this.length; i++)
+			if (predicate(this[i]) === true) return this[i];
+		throw INVALID_OPERATION;
+	}
+});
+
+Object.defineProperty(Array.prototype, "firstOrDefault", {
+	value: function(predicate) {
+		"use strict";
+		if (predicate != null) {
+			for (var i = 0; i < this.length; i++)
+				if (predicate(this[i]) === true) return this[i];
+			return null;
+		} else if (this.length === 0) {
+			return null;
+		}
+		return this[0];
+	}
+});
+
 Object.defineProperty(Array.prototype, "select", {
 	value: function(selector) {
 		"use strict";
