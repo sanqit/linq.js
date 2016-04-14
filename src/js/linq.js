@@ -1,19 +1,58 @@
-﻿function defaultComparer(a, b) {
-	if (a === b) return 0;
-	if (a == null) return -1;
-	if (b == null) return 1;
-	if (typeof(a) == "string") return a.toString().localeCompare(b.toString());
-	return a.valueOf() - b.valueOf();
-};
-
-Object.defineProperty(Object.prototype, "equals", {
-	value: function (b) {
+﻿Object.defineProperty(Array.prototype, "aggregate", {
+	value: function (predicate) {
 		"use strict";
-		return this === b || JSON.stringify(this) === JSON.stringify(b);
+		if (predicate == null) return null;
+		var workingSentence = "";
+		for (var i = 0; i < this.length; i++)
+			workingSentence = predicate(workingSentence, this[i]);
+		return workingSentence;
 	}
 });
 
-// Array extensions
+Object.defineProperty(Array.prototype, "all", {
+	value: function (predicate) {
+		"use strict";
+		if (predicate == null) return this.length !== 0;
+		for (var i = 0; i < this.length; i++)
+			if (predicate(this[i]) !== true) return false;
+		return true;
+	}
+});
+
+Object.defineProperty(Array.prototype, "any", {
+	value: function (predicate) {
+		"use strict";
+		if (predicate == null) return this.length !== 0;
+		for (var i = 0; i < this.length; i++)
+			if (predicate(this[i]) === true) return true;
+		return false;
+	}
+});
+
+Object.defineProperty(Array.prototype, "average", {
+	value: function () {
+		"use strict";
+		var summ = 0;
+		var count = 0;
+		for (var i = 0; i < this.length; i++)
+			if (this[i] != null) {
+				summ += this[i];
+				count++;
+			}
+		return summ / count;
+	}
+});
+
+Object.defineProperty(Array.prototype, "count", {
+	value: function (predicate) {
+		"use strict";
+		if (predicate == null) return this.length;
+		var arr = [];
+		for (var i = 0; i < this.length; i++)
+			if (predicate(this[i]) === true) arr.push(this[i]);
+		return arr.length;
+	}
+});
 
 Object.defineProperty(Array.prototype, "select", {
 	value: function(selector) {
@@ -35,31 +74,12 @@ Object.defineProperty(Array.prototype, "where", {
 	}
 });
 
-Object.defineProperty(Array.prototype, "any", {
-	value: function (predicate) {
-		"use strict";
-		if (predicate == null) return this.length !== 0;
-		for (var i = 0; i < this.length; i++)
-			if (predicate(this[i]) === true) return true;
-		return false;
-	}
-});
-
-Object.defineProperty(Array.prototype, "all", {
-	value: function (predicate) {
-		"use strict";
-		if (predicate == null) return this.length !== 0;
-		for (var i = 0; i < this.length; i++)
-			if (predicate(this[i]) !== true) return false;
-		return true;
-	}
-});
-
 Object.defineProperty(Array.prototype, "orderBy", {
 	value: function (selector, comparer) {
 		"use strict";
 		comparer = comparer || defaultComparer;
-		return this.sort(function(a, b) {
+
+		return this.slice(0).sort(function (a, b) {
 			return comparer(selector(a), selector(b));
 		});
 	}
@@ -69,7 +89,7 @@ Object.defineProperty(Array.prototype, "orderByDescending", {
 	value: function (selector, comparer) {
 		"use strict";
 		comparer = comparer || defaultComparer;
-		return this.orderBy(selector, function (a, b) { return -comparer(a, b); });
+		return this.slice(0).orderBy(selector, function (a, b) { return -comparer(a, b); });
 	}
 });
 
@@ -117,3 +137,18 @@ Object.defineProperty(Array.prototype, "min", {
 		return min != null ? min : null;
 	}
 });
+
+Object.defineProperty(Object.prototype, "equals", {
+	value: function (b) {
+		"use strict";
+		return this === b || JSON.stringify(this) === JSON.stringify(b);
+	}
+});
+
+function defaultComparer(a, b) {
+	if (a === b) return 0;
+	if (a == null) return -1;
+	if (b == null) return 1;
+	if (typeof (a) == "string") return a.toString().localeCompare(b.toString());
+	return a.valueOf() - b.valueOf();
+};

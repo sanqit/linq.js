@@ -82,10 +82,69 @@ sampleArrayObjAfterToDictionary_valueNull[4] = { SampleID: 4, Desc: "Desc4", Cod
 sampleArrayObjAfterToDictionary_valueNull[5] = { SampleID: 5, Desc: "Desc5", Code: "Code5" };
 
 var minMaxTestSample1 = [1, 2, 3, 4, 5, 3, 2, 1, 0, -4];
-
 var minMaxTestSample2 = [-1, undefined, -3, null, -5, -3, -2, -1, 0, -4];
-
 var minMaxTestSample3 = [null, undefined, null];
+
+var averageTestSample1 = [null, 10007, 37, 399846234235];
+var averageTestSample2 = [null, null, null, null];
+
+function testAggragate() {
+	var isAggregateComplete = true;
+	var sentence = "the quick brown fox jumps over the lazy dog";
+
+	// Split the string into individual words.
+	var words = sentence.split(" ");
+
+	// Prepend each word to the beginning of the 
+	// new sentence to reverse the word order.
+	var reversed = words.aggregate((workingSentence, next) => next + " " + workingSentence);
+	isAggregateComplete &= reversed === "dog lazy the over jumps fox brown quick the ";
+	return isAggregateComplete;
+}
+
+function testAll() {
+	var isAllComplete = true;
+	isAllComplete &= testSample4.all(x => x.Desc == "Desc1");
+	isAllComplete &= testSample4.all(x => x.Desc == "Desc1" && x.Code !== "code");
+	isAllComplete &= testSample4.all(x => x != null);
+	return isAllComplete;
+}
+
+function testAny() {
+	var isAnyComplete = true;
+	isAnyComplete &= !empty.any();
+	isAnyComplete &= testSample1.any();
+	isAnyComplete &= testSample1.any(x => x.Desc == "Desc2" || x.Code == "Code1");
+	isAnyComplete &= !testSample1.any(x => x.Desc == "Desc32");
+	isAnyComplete &= testSample1.any(x => x.equals({ SampleID: 1, Desc: "Desc1", Code: "Code1" }));
+	return isAnyComplete;
+}
+
+function testAverage() {
+	var isAverageComplete = true;
+	isAverageComplete &= averageTestSample1.average() === 133282081426.33333;
+	isAverageComplete &= isNaN(averageTestSample2.average());
+	return isAverageComplete;
+}
+
+function testConcat() {
+	var isConcatComplete = true;
+	var cats = [{ Name: "Barley", Age: 8 }, { Name: "Boots", Age: 4 }, { Name: "Whiskers", Age: 1 }];
+	var dogs = [{ Name: "Bounder", Age: 3 }, { Name: "Snoopy", Age: 14 }, { Name: "Fido", Age: 9 }];
+	var query = cats.select(cat => cat.Name).concat(dogs.select(dog => dog.Name));
+	isConcatComplete &= query.equals(["Barley", "Boots", "Whiskers", "Bounder", "Snoopy", "Fido"]);
+	return isConcatComplete;
+}
+
+function testCount() {
+	var isCountComplete = true;
+	var fruits = ["apple", "banana", "mango", "orange", "passionfruit", "grape"];
+	isCountComplete &= fruits.count() === 6;
+	var pets = [{ Name: "Barley", Vaccinated: true }, { Name: "Boots", Vaccinated: false }, { Name: "Whiskers", Vaccinated: false }];
+	isCountComplete &= pets.count(x => !x.Vaccinated) === 2;
+	return isCountComplete;
+}
+
 
 function testEquals() {
 	var isEquals = true;
@@ -111,24 +170,6 @@ function testWhere() {
 	return isWhereComplete;
 }
 
-function testAny() {
-	var isAnyComplete = true;
-	isAnyComplete &= !empty.any();
-	isAnyComplete &= testSample1.any();
-	isAnyComplete &= testSample1.any(x => x.Desc == "Desc2" || x.Code == "Code1");
-	isAnyComplete &= !testSample1.any(x => x.Desc == "Desc32");
-	isAnyComplete &= testSample1.any(x => x.equals({ SampleID: 1, Desc: "Desc1", Code: "Code1" }));
-	return isAnyComplete;
-}
-
-function testAll() {
-	var isAllComplete = true;
-	isAllComplete &= testSample4.all(x => x.Desc == "Desc1");
-	isAllComplete &= testSample4.all(x => x.Desc == "Desc1" && x.Code !== "code");
-	isAllComplete &= testSample4.all(x => x != null);
-	return isAllComplete;
-}
-
 function testDistinct() {
 	var isDistinctComplete = true;
 	isDistinctComplete &= (testAfterDistinct1.equals(testBeforeDistinct1.distinct(x => x.SampleID)));
@@ -141,6 +182,7 @@ function testOrderBy() {
 	var isOrderByComplete = true;
 	isOrderByComplete &= (testSample2.equals(testSample1.orderBy(x => x.SampleID)));
 	isOrderByComplete &= (testSample2.equals(testSample1.orderBy(x => x.Desc)));
+	isOrderByComplete &= (testSample1.equals(testSample1));
 	isOrderByComplete &= (testSample2.equals(testSample1.orderBy(x => x.Code)));
 	isOrderByComplete &= ([].equals([].orderBy(x => x.Code)));
 	return isOrderByComplete;
