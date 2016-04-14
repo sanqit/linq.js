@@ -1,55 +1,71 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<meta charset="utf-8" />
+	<title>linq.js test</title>
+	<meta charset="utf-8"/>
 	<script src="../js/linq.js"></script>
 	<script src="../test/test.js"></script>
 </head>
 <body>
 <style>
+	.status {
+		-ms-border-radius: 50%;
+		border: solid;
+		border-radius: 50%;
+		display: inline-flex;
+		height: 10px;
+		margin-right: 5px;
+		width: 10px;
+	}
+
 	.success {
+		background-color: chartreuse;
 		color: green;
 	}
-	.fail {
-		color: red;
+
+	.failed {
+		background-color: red;
+		color: saddlebrown;
 	}
 </style>
+<button onclick="writeInfoAboutAllTest()">Run Test</button>
 <div class="all-tests"></div>
-	<button onclick="writeInfoAboutAllTest()">Run Test</button>
 <script language="javascript">
-	function writeInfoAboutAllTest()
-	{
+	function writeInfoAboutAllTest() {
 		var allTests = document.getElementsByClassName("all-tests");
 		for (var i in allTests) {
 			if (allTests.hasOwnProperty(i)) {
 				allTests[i].innerHTML = "";
-				allTests[i].innerHTML += ("Test testAggragate = " + writeTestInfo(testAggragate()));
-				allTests[i].innerHTML += ("Test all = " + writeTestInfo(testAll()));
-				allTests[i].innerHTML += ("Test any = " + writeTestInfo(testAny()));
-				allTests[i].innerHTML += ("Test average = " + writeTestInfo(testAverage()));
-				allTests[i].innerHTML += ("Test concat = " + writeTestInfo(testConcat()));
-				allTests[i].innerHTML += ("Test count = " + writeTestInfo(testCount()));
-				allTests[i].innerHTML += ("Test elementAt = " + writeTestInfo(testElementAt()));
-				allTests[i].innerHTML += ("Test except = " + writeTestInfo(testExept()));
-				allTests[i].innerHTML += ("Test first = " + writeTestInfo(testFirst()));
-				allTests[i].innerHTML += ("Test firstOrDefault = " + writeTestInfo(testFirstOrDefault()));
-				allTests[i].innerHTML += ("Test equals = " + writeTestInfo(testEquals()));
-				allTests[i].innerHTML += ("Test select = " + writeTestInfo(testSelect()));
-				allTests[i].innerHTML += ("Test where = " + writeTestInfo(testWhere()));
-				allTests[i].innerHTML += ("Test distinct = " + writeTestInfo(testDistinct()));
-				allTests[i].innerHTML += ("Test orderBy = " + writeTestInfo(testOrderBy()));
-				allTests[i].innerHTML += ("Test orderByDescending = " + writeTestInfo(testOrderByDescending()));
-				allTests[i].innerHTML += ("Test toDictionary = " + writeTestInfo(testToDictionary()));
-				allTests[i].innerHTML += ("Test max = " + writeTestInfo(testMax()));
-				allTests[i].innerHTML += ("Test min = " + writeTestInfo(testMin()));
+				allTests[i].innerHTML += writeTestInfo("Test testAggragate", testAggragate())
+					+ writeTestInfo("Test all", testAll())
+					+ writeTestInfo("Test any", testAny())
+					+ writeTestInfo("Test average", testAverage())
+					+ writeTestInfo("Test concat", testConcat())
+					+ writeTestInfo("Test count", testCount())
+					+ writeTestInfo("Test elementAt", testElementAt())
+					+ writeTestInfo("Test except", testExept())
+					+ writeTestInfo("Test first", testFirst())
+					+ writeTestInfo("Test firstOrDefault", testFirstOrDefault())
+					+ writeTestInfo("Test equals", testEquals())
+					+ writeTestInfo("Test select", testSelect())
+					+ writeTestInfo("Test where", testWhere())
+					+ writeTestInfo("Test distinct", testDistinct())
+					+ writeTestInfo("Test orderBy", testOrderBy())
+					+ writeTestInfo("Test orderByDescending", testOrderByDescending())
+					+ writeTestInfo("Test toDictionary", testToDictionary())
+					+ writeTestInfo("Test max", testMax())
+					+ writeTestInfo("Test min", testMin());
 			}
 		}
 	}
 
-	function writeTestInfo(isComplete) {
-		return (isComplete ? "<span class='success'>complete</span>" : "<span class='fail'>Fail</span>") + "</br>";
+	function writeTestInfo(info, isSuccess) {
+		return "<div><i class='status " + (isSuccess ? "success" : "failed") + "'></i>" + info + "</div>";
 	}
+
+	(function() {
+		writeInfoAboutAllTest();
+	})();
 </script>
 </body>
 </html>
