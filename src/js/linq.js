@@ -1,6 +1,7 @@
-﻿Object.defineProperty(Array.prototype, "aggregate", {
+﻿"use strict";
+
+Object.defineProperty(Array.prototype, "aggregate", {
 	value: function (predicate) {
-		"use strict";
 		if (predicate == null) return null;
 		var workingSentence = "";
 		for (var i = 0; i < this.length; i++)
@@ -11,7 +12,6 @@
 
 Object.defineProperty(Array.prototype, "all", {
 	value: function (predicate) {
-		"use strict";
 		if (predicate == null) return this.length !== 0;
 		for (var i = 0; i < this.length; i++)
 			if (predicate(this[i]) !== true) return false;
@@ -21,7 +21,6 @@ Object.defineProperty(Array.prototype, "all", {
 
 Object.defineProperty(Array.prototype, "any", {
 	value: function (predicate) {
-		"use strict";
 		if (predicate == null) return this.length !== 0;
 		for (var i = 0; i < this.length; i++)
 			if (predicate(this[i]) === true) return true;
@@ -31,7 +30,6 @@ Object.defineProperty(Array.prototype, "any", {
 
 Object.defineProperty(Array.prototype, "average", {
 	value: function () {
-		"use strict";
 		var summ = 0;
 		var count = 0;
 		for (var i = 0; i < this.length; i++)
@@ -45,7 +43,6 @@ Object.defineProperty(Array.prototype, "average", {
 
 Object.defineProperty(Array.prototype, "count", {
 	value: function (predicate) {
-		"use strict";
 		if (predicate == null) return this.length;
 		var arr = [];
 		for (var i = 0; i < this.length; i++)
@@ -56,14 +53,12 @@ Object.defineProperty(Array.prototype, "count", {
 
 Object.defineProperty(Array.prototype, "elementAt", {
 	value: function (index) {
-		"use strict";
 		return this[index];
 	}
 });
 
 Object.defineProperty(Array.prototype, "except", {
 	value: function(arr, comparer) {
-		"use strict";
 		comparer = comparer || defaultComparer;
 		var res = [];
 		for (var i = 0; i < this.length; i++)
@@ -76,7 +71,6 @@ Object.defineProperty(Array.prototype, "except", {
 
 Object.defineProperty(Array.prototype, "first", {
 	value: function (predicate) {
-		"use strict";
 		if (predicate == null) return this[0];
 		for (var i = 0; i < this.length; i++)
 			if (predicate(this[i]) === true) return this[i];
@@ -86,7 +80,6 @@ Object.defineProperty(Array.prototype, "first", {
 
 Object.defineProperty(Array.prototype, "firstOrDefault", {
 	value: function(predicate) {
-		"use strict";
 		if (predicate != null) {
 			for (var i = 0; i < this.length; i++)
 				if (predicate(this[i]) === true) return this[i];
@@ -100,7 +93,6 @@ Object.defineProperty(Array.prototype, "firstOrDefault", {
 
 Object.defineProperty(Array.prototype, "select", {
 	value: function(selector) {
-		"use strict";
 		var arr = [];
 		for (var i = 0; i < this.length; i++)
 			arr.push(selector(this[i]));
@@ -110,7 +102,6 @@ Object.defineProperty(Array.prototype, "select", {
 
 Object.defineProperty(Array.prototype, "where", {
 	value: function (predicate) {
-		"use strict";
 		var arr = [];
 		for (var i = 0; i < this.length; i++)
 			if (predicate(this[i]) === true) arr.push(this[i]);
@@ -120,7 +111,6 @@ Object.defineProperty(Array.prototype, "where", {
 
 Object.defineProperty(Array.prototype, "orderBy", {
 	value: function (selector, comparer) {
-		"use strict";
 		comparer = comparer || defaultComparer;
 
 		return this.slice(0).sort(function (a, b) {
@@ -131,7 +121,6 @@ Object.defineProperty(Array.prototype, "orderBy", {
 
 Object.defineProperty(Array.prototype, "orderByDescending", {
 	value: function (selector, comparer) {
-		"use strict";
 		comparer = comparer || defaultComparer;
 		return this.slice(0).orderBy(selector, function (a, b) { return -comparer(a, b); });
 	}
@@ -139,7 +128,6 @@ Object.defineProperty(Array.prototype, "orderByDescending", {
 
 Object.defineProperty(Array.prototype, "distinct", {
 	value: function () {
-		"use strict";
 		var arr = [];
 		for (var i = 0; i < this.length; i++) {
 			var a = this[i];
@@ -151,7 +139,6 @@ Object.defineProperty(Array.prototype, "distinct", {
 
 Object.defineProperty(Array.prototype, "toDictionary", {
 	value: function (keySelector, valueSelector) {
-		"use strict";
 		var dictionary = {};
 		var key;
 		for (var i = 0; i < this.length; i++) {
@@ -164,7 +151,6 @@ Object.defineProperty(Array.prototype, "toDictionary", {
 
 Object.defineProperty(Array.prototype, "max", {
 	value: function () {
-		"use strict";
 		var max = this[0];
 		for (var i = 1; i < this.length; i++)
 			if (this[i] != null && max < this[i]) max = this[i];
@@ -174,7 +160,6 @@ Object.defineProperty(Array.prototype, "max", {
 
 Object.defineProperty(Array.prototype, "min", {
 	value: function () {
-		"use strict";
 		var min = this[0];
 		for (var i = 1; i < this.length; i++)
 			if (this[i] != null && min > this[i]) min = this[i];
@@ -184,7 +169,6 @@ Object.defineProperty(Array.prototype, "min", {
 
 Object.defineProperty(Object.prototype, "equals", {
 	value: function (b) {
-		"use strict";
 		return this === b || JSON.stringify(this) === JSON.stringify(b);
 	}
 });
