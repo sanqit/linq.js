@@ -1,71 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>linq.js test</title>
-	<meta charset="utf-8"/>
-	<script src="../js/linq.js"></script>
-	<script src="../test/test.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Test of linq methods</title>
+	<link rel="stylesheet" href="qunit/qunit-1.23.1.css">
 </head>
 <body>
-<style>
-	.status {
-		-ms-border-radius: 50%;
-		border: solid;
-		border-radius: 50%;
-		display: inline-flex;
-		height: 10px;
-		margin-right: 5px;
-		width: 10px;
-	}
-
-	.success {
-		background-color: chartreuse;
-		color: green;
-	}
-
-	.failed {
-		background-color: red;
-		color: saddlebrown;
-	}
-</style>
-<button onclick="writeInfoAboutAllTest()">Run Test</button>
-<div class="all-tests"></div>
-<script language="javascript">
-	function writeInfoAboutAllTest() {
-		var allTests = document.getElementsByClassName("all-tests");
-		for (var i in allTests) {
-			if (allTests.hasOwnProperty(i)) {
-				allTests[i].innerHTML = "";
-				allTests[i].innerHTML += writeTestInfo("Test aggregate", testAggregate())
-					+ writeTestInfo("Test all", testAll())
-					+ writeTestInfo("Test any", testAny())
-					+ writeTestInfo("Test average", testAverage())
-					+ writeTestInfo("Test concat", testConcat())
-					+ writeTestInfo("Test count", testCount())
-					+ writeTestInfo("Test elementAt", testElementAt())
-					+ writeTestInfo("Test except", testExept())
-					+ writeTestInfo("Test first", testFirst())
-					+ writeTestInfo("Test firstOrDefault", testFirstOrDefault())
-					+ writeTestInfo("Test equals", testEquals())
-					+ writeTestInfo("Test select", testSelect())
-					+ writeTestInfo("Test where", testWhere())
-					+ writeTestInfo("Test distinct", testDistinct())
-					+ writeTestInfo("Test orderBy", testOrderBy())
-					+ writeTestInfo("Test orderByDescending", testOrderByDescending())
-					+ writeTestInfo("Test toDictionary", testToDictionary())
-					+ writeTestInfo("Test max", testMax())
-					+ writeTestInfo("Test min", testMin());
-			}
-		}
-	}
-
-	function writeTestInfo(info, isSuccess) {
-		return "<div><i class='status " + (isSuccess ? "success" : "failed") + "'></i>" + info + "</div>";
-	}
-
-	(function() {
-		writeInfoAboutAllTest();
-	})();
-</script>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+	<script src="../js/linq.js"></script>
+	<script src="testdata.js"></script>
+	<script src="qunit/qunit-1.23.1.js"></script>
+	<script src="tests.js"></script>
 </body>
 </html>
