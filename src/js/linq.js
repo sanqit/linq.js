@@ -62,7 +62,7 @@ Object.defineProperty(Array.prototype, "except", {
 		comparer = comparer || defaultComparer;
 		var res = [];
 		if (arr.length === 0) {
-			return res;
+			return this;
 		}
 
 		for (var i = 0; i < this.length; i++)
