@@ -61,6 +61,10 @@ Object.defineProperty(Array.prototype, "except", {
 	value: function(arr, comparer) {
 		comparer = comparer || defaultComparer;
 		var res = [];
+		if (arr.length === 0) {
+			return res;
+		}
+
 		for (var i = 0; i < this.length; i++)
 			for (var j = 0; j < arr.length; j++)
 				if (comparer(arr[j], this[i]) !==0)
